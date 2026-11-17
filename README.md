@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AgendaCampus, point de départ (séance 1)
 
 Application web de gestion des événements du campus, construite pas à pas

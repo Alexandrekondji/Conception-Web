@@ -1,0 +1,219 @@
+/* ==========================================================
+   AgendaCampus : feuille de style (point de départ)
+   Approche « mobile d'abord » : écrivez d'abord les règles pour
+   un petit écran, puis enrichissez avec des media queries.
+   ========================================================== */
+
+:root {
+  --c-primaire: #1e2761;      /* bleu nuit */
+  --c-primaire-clair: #e7ecf3;
+  --c-accent: #f2a93b;        /* ambre */
+  --c-texte: #1b1f27;
+  --c-texte-doux: #5b6472;
+  --c-bordure: #d8dde5;
+  --c-fond: #f6f7fa;
+  --rayon: 10px;
+  --espace: 1rem;
+  --police: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--police);
+  line-height: 1.55;
+  color: var(--c-texte);
+  background: var(--c-fond);
+}
+
+/* TODO (partie B) : en-tête et navigation (Flexbox)        */
+
+.entete {
+  background-color: var(--c-primaire);
+  color: white;
+}
+
+.entete__barre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espace);
+  padding: var(--espace);
+}
+
+/* Logo */
+.logo {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* Menu */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: var(--c-accent);
+}
+
+/* Lien d'évitement */
+.lien-evitement {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: white;
+  color: var(--c-primaire);
+  padding: var(--espace);
+  z-index: 1000;
+}
+
+.lien-evitement:focus {
+  left: 0;
+}
+
+
+/* TODO (partie C) : grille de cartes (CSS Grid) : 1, puis 2, puis 3 colonnes *
+
+
+/* Conteneur  */
+.conteneur {
+    width: min(100% - 2rem, 1100px);
+    margin-inline: auto;
+}
+
+/* Grille des événements */
+.grille-evenements {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espace);
+    list-style: none;
+    padding: 0;
+}
+
+
+.carte {
+    background: white;
+    border: 1px solid var(--c-bordure);
+    border-radius: var(--rayon);
+    padding: var(--espace);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.carte__date {
+    color: var(--c-texte-doux);
+    font-size: 0.9rem;
+}
+
+.carte__titre a {
+    color: var(--c-primaire);
+    text-decoration: none;
+}
+
+.carte__titre a:hover {
+    text-decoration: underline;
+}
+
+.carte__lieu {
+    color: var(--c-texte-doux);
+}
+
+
+.badge {
+    display: inline-block;
+    background: var(--c-primaire-clair);
+    color: var(--c-primaire);
+    padding: 0.35rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.badge--complet {
+    background: #eeeeee;
+    color: #333333;
+    border: 1px solid #777777;
+}
+
+
+@media (min-width: 640px) {
+    .grille-evenements {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (min-width: 960px) {
+    .grille-evenements {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* TODO (partie D) : page de détail et formulaire            */
+
+
+/* Page de détail */
+.detail-evenement,
+.formulaire-inscription {
+    background: white;
+    padding: var(--espace);
+    margin-block: var(--espace);
+    border: 1px solid var(--c-bordure);
+    border-radius: var(--rayon);
+}
+
+.formulaire-inscription form {
+    display: grid;
+    gap: var(--espace);
+}
+
+.formulaire-inscription label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+}
+
+.formulaire-inscription input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid var(--c-bordure);
+    border-radius: var(--rayon);
+    font: inherit;
+}
+
+.formulaire-inscription button {
+    padding: 0.7rem 1rem;
+    background: var(--c-primaire);
+    color: white;
+    border: 0;
+    border-radius: var(--rayon);
+    cursor: pointer;
+    font: inherit;
+}
+
+.formulaire-inscription button:disabled {
+    background: #777;
+    cursor: not-allowed;
+}
+
+/* Focus visible au clavier */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--c-accent);
+    outline-offset: 4px;
+}
+

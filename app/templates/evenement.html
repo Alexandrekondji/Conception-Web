@@ -1,0 +1,79 @@
+
+{% extends "base.html" %}
+
+{% block titre %}{{ evenement.titre }} | AgendaCampus{% endblock %}
+
+{% block contenu %}
+<div class="conteneur">
+    <article class="detail-evenement">
+
+        <h1>{{ evenement.titre }}</h1>
+
+        <p>
+            <strong>Date :</strong>
+            <time datetime="{{ evenement.debut.isoformat() }}">
+                {{ evenement.debut | date_fr }}
+            </time>
+        </p>
+
+        <p>
+            <strong>Lieu :</strong> {{ evenement.lieu }}
+        </p>
+
+        <p>
+            <strong>Description :</strong>
+            {{ evenement.description }}
+        </p>
+
+        {% set reste = evenement.capacite - evenement.inscrits %}
+
+        <p>
+            <strong>Places disponibles :</strong>
+            {% if reste > 0 %}
+                {{ reste }} place{% if reste > 1 %}s{% endif %}
+                restante{% if reste > 1 %}s{% endif %}
+            {% else %}
+                Complet
+            {% endif %}
+        </p>
+
+    </article>
+
+    <section class="formulaire-inscription">
+        <h2>Inscription à l'événement</h2>
+
+        <form
+            method="POST"
+            action="/evenements/{{ evenement.id }}/inscription"
+        >
+            <div>
+                <label for="nom">Nom complet</label>
+                <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="email">Adresse e-mail</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                >
+            </div>
+
+            <button type="submit" {% if reste <= 0 %}disabled{% endif %}>
+                S'inscrire
+            </button>
+        </form>
+    </section>
+
+    <p>
+        <a href="/">← Retour à la liste des événements</a>
+    </p>
+</div>
+{% endblock %}

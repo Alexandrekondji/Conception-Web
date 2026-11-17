@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block contenu %}
+<div class="conteneur">
+    <h1>Événements à venir sur le campus</h1>
+
+    <p>Il y a {{ evenements | length }} événement(s) dans la liste.</p>
+
+    <ul class="grille-evenements">
+        {% for e in evenements %}
+            {% set reste = e.capacite - e.inscrits %}
+
+            <li class="carte">
+                <article>
+                    <p class="carte__date">
+                        <time datetime="{{ e.debut.isoformat() }}">
+                            {{ e.debut | date_fr }}
+                        </time>
+                    </p>
+
+                    <h2 class="carte__titre">
+                        <a href="/evenements/{{ e.id }}">
+                            {{ e.titre }}
+                        </a>
+                    </h2>
+
+                    <p class="carte__lieu">
+                        Lieu : {{ e.lieu }}
+                    </p>
+
+                    {% if reste > 0 %}
+                        <span class="badge">
+                            {{ reste }} place{% if reste > 1 %}s{% endif %} restante{% if reste > 1 %}s{% endif %}
+                        </span>
+                    {% else %}
+                        <span class="badge badge--complet">
+                            Complet
+                        </span>
+                    {% endif %}
+                </article>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
